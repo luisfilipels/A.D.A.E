@@ -7,13 +7,21 @@
 //
 
 import UIKit
+import Foundation
 
 class DayStepViewController: UIViewController {
     @IBOutlet weak var quoteView: UIView!
     @IBOutlet weak var classTableView: UITableView!
+    @IBOutlet weak var quoteText: UILabel!
+    @IBOutlet weak var quoteAuthor: UILabel!
+    //@IBOutlet weak var startTimeButton: UIButton!
+    //@IBOutlet weak var endTimeButton: UIButton!
+    
+    static let selfController = self
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         quoteView.layer.cornerRadius = 10
         quoteView.layer.shadowOffset = CGSize(width: 0, height: 3)
         quoteView.layer.shadowRadius = 1
@@ -24,13 +32,23 @@ class DayStepViewController: UIViewController {
         classTableView.delegate = self
         classTableView.dataSource = self
         
-//        editTimeView.layer.cornerRadius = 10
-//        editTimeView.layer.shadowOffset = CGSize(width: 0, height: 3)
-//        editTimeView.layer.shadowRadius = 1
-//        editTimeView.layer.shadowOpacity = 1
-//        editTimeView.layer.shadowColor = CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 0.06)
+        
+        
+        QuoteRepository.getQuote() { quoteResponse in
+            DispatchQueue.main.async {
+                self.quoteText.text = "\(quoteResponse.quote)"
+                self.quoteAuthor.text = "- \(quoteResponse.author)"
+            }
+        }
+        
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let cell = classTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? ReminderTableViewCell {
+            //cell.endTimeButton.titleLabel?.text = "teste"
+        }
+    }
+    
 }
 
 extension DayStepViewController: UITableViewDataSource, UITableViewDelegate {
@@ -74,10 +92,14 @@ extension DayStepViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SetReminderCell", for: indexPath) as! ReminderTableViewCell
-                        
+
             return cell
         }
 
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        print(#function)
     }
     
     
