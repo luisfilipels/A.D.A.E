@@ -114,9 +114,9 @@ class PomodoroViewController: UIViewController {
             print(timeRemaining)
             print(studyTime)
             
-            let time = (Float(timeRemaining) / Float(studyTime)) - 1.0
-            print(time - 1.0)
-            progressView.setProgress(time - 1.0, animated: false)
+            let time = (Float(timeRemaining) / Float(studyTime))
+            print(time)
+            progressView.setProgress(time, animated: false)
         } else {
             print("Rest")
             print(timeRemaining)
