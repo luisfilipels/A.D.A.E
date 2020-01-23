@@ -49,9 +49,26 @@ class DayStepViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if  segue.identifier == "editLectureSegue",
+            let destination = segue.destination as? EditLectureViewController,
+            let materia = sender as? String
+        {
+            destination.title = materia
+        }
+    }
+    
 }
 
 extension DayStepViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            // let disciplinaSelecionada: Disciplina = disciplinas[indexPath.row]
+            self.performSegue(withIdentifier: "editLectureSegue", sender: "Matéria")
+        }
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
