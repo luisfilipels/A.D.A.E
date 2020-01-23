@@ -11,9 +11,14 @@ import UIKit
 class EditLectureViewController: UIViewController {
     @IBOutlet weak var pageTitle: UINavigationBar!
     
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
         self.pageTitle.topItem?.title = self.title
+        
     }
     
     @IBAction func saveAction(_ sender: Any) {
@@ -35,14 +40,32 @@ class EditLectureViewController: UIViewController {
 
 extension EditLectureViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        switch indexPath.section {
+        case 0:
+            switch indexPath.row {
+            case 0:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_one") as? MateriaTableViewCell
+                cell?.materiaTextField.text = "Matemática"
+                return cell!
+            case 1:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_two") as? InicioTableViewCell
+                cell?.startLabel.text = "Início"
+                return cell!
+            default:
+                return UITableViewCell()
+            }
+        case 1:
+            return UITableViewCell()
+        default:
+            return UITableViewCell()
+        }
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             // let disciplinaSelecionada: Disciplina = disciplinas[indexPath.row]
-            self.performSegue(withIdentifier: "editLectureSegue", sender: "Matéria")
+//            self.performSegue(withIdentifier: "editLectureSegue", sender: "Matéria")
         }
     }
     
@@ -73,6 +96,8 @@ extension EditLectureViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30
     }
+    
+    
     
     /*func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
