@@ -337,11 +337,18 @@
                                 <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Estude!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1L-Dw-idt">
-                                <rect key="frame" x="166" y="266" width="82" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2u-t6-Coq">
+                                <rect key="frame" x="207" y="266" width="0.0" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Estude!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1h8-oA-cmq">
+                                <rect key="frame" x="150" y="257" width="115" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -369,10 +376,12 @@
                     <tabBarItem key="tabBarItem" title="Item" id="Xik-dQ-xZH"/>
                     <navigationItem key="navigationItem" title="Pomodoro" largeTitleDisplayMode="always" id="lfu-wm-bQc"/>
                     <connections>
+                        <outlet property="StudyRestLabel" destination="o2u-t6-Coq" id="sGj-lz-2Hf"/>
                         <outlet property="minutesLabel" destination="kAr-5Y-qam" id="7Zy-xc-nA6"/>
                         <outlet property="progressView" destination="qHd-0B-xao" id="fd8-ic-oXH"/>
                         <outlet property="secondsLabel" destination="Hgb-2b-eYL" id="Zks-G0-Rry"/>
                         <outlet property="startPauseButton" destination="3rp-xb-wih" id="fHJ-8m-Ppg"/>
+                        <outlet property="studyRestLabel" destination="1h8-oA-cmq" id="Xy7-zb-N16"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DBQ-AY-9Mj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

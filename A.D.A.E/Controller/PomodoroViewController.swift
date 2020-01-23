@@ -40,6 +40,7 @@ class PomodoroViewController: UIViewController {
     
     @IBOutlet weak var startPauseButton: UIButton!
     
+    @IBOutlet weak var studyRestLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,8 +72,14 @@ class PomodoroViewController: UIViewController {
         if currentInterval < intervals.count {
             if intervals[currentInterval] == .Study {
                 timeRemaining = studyTime
+                self.studyRestLabel.text = "Estude!"
+                self.minutesLabel.textColor = .green
+                self.secondsLabel.textColor = .green
             } else {
                 timeRemaining = restTime
+                self.studyRestLabel.text = "Descanse!"
+                self.minutesLabel.textColor = .red
+                self.secondsLabel.textColor = .red
             }
             updateDisplay()
             startTimer()
@@ -139,6 +146,7 @@ class PomodoroViewController: UIViewController {
     func formatMinuteOrSecond (_ number: Int) -> String {
         return String(format:"%02d", number)
     }
+    
     
 
     /*
