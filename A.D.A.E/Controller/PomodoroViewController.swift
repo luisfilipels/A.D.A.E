@@ -8,6 +8,8 @@
 
 import UIKit
 
+import AVFoundation
+
 class PomodoroViewController: UIViewController {
     
     enum IntervalType {
@@ -42,11 +44,15 @@ class PomodoroViewController: UIViewController {
     
     @IBOutlet weak var studyRestLabel: UILabel!
     
+    @IBOutlet weak var colonLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         progressView.progressViewStyle = .bar
         progressView.setProgress(1, animated: true)
+        
+        addLongPressGesture()
+        
         //startPauseButton.translatesAutoresizingMaskIntoConstraints = false
         // Do any additional setup after loading the view.
     }
@@ -55,11 +61,12 @@ class PomodoroViewController: UIViewController {
     @IBAction func startPauseButtonPressed(_ sender: Any) {
         if timer.isValid {
             // Trocar desenho do botão
-            startPauseButton.setBackgroundImage(UIImage(named: "PLAYBUTTON"), for: .normal)
+            startPauseButton.setBackgroundImage(UIImage(named: "play"), for: .normal)
             pauseTimer()
+            
         } else {
             // Trocar desenho também
-            startPauseButton.setBackgroundImage(UIImage(named: "StopSign"), for: .normal)
+            startPauseButton.setBackgroundImage(UIImage(named: "pause"), for: .normal)
             if currentInterval == 0 && timeRemaining == studyTime {
                 startNextInterval()
             } else {
@@ -71,19 +78,33 @@ class PomodoroViewController: UIViewController {
     func startNextInterval() {
         if currentInterval < intervals.count {
             if intervals[currentInterval] == .Study {
+                AudioServicesPlaySystemSound (1336)
+                self.startPauseButton.tintColor = .systemBlue
+                currentInterval += 1
                 timeRemaining = studyTime
                 self.studyRestLabel.text = "Estude!"
-                self.minutesLabel.textColor = .green
-                self.secondsLabel.textColor = .green
+                self.minutesLabel.textColor = .black
+                self.secondsLabel.textColor = .black
+                self.colonLabel.textColor = .black
+                self.studyRestLabel.textColor = .black
+                self.progressView.progressTintColor = .black
+                
             } else {
+                AudioServicesPlaySystemSound (1036)
+                self.startPauseButton.tintColor = .systemRed
+                currentInterval += 1
                 timeRemaining = restTime
                 self.studyRestLabel.text = "Descanse!"
                 self.minutesLabel.textColor = .red
                 self.secondsLabel.textColor = .red
+                self.colonLabel.textColor = .red
+                self.studyRestLabel.textColor = .red
+                self.progressView.progressTintColor = .red
+
             }
             updateDisplay()
             startTimer()
-            currentInterval += 1
+            
         } else {
             resetToBeginning()
         }
@@ -122,7 +143,6 @@ class PomodoroViewController: UIViewController {
             print("Study")
             print(timeRemaining)
             print(studyTime)
-            progressView.progressTintColor = .green
             
             let time = (Float(timeRemaining) / Float(studyTime))
             print(time)
@@ -131,7 +151,6 @@ class PomodoroViewController: UIViewController {
             print("Rest")
             print(timeRemaining)
             print(studyTime)
-            progressView.progressTintColor = .red
             
             let time = (Float(timeRemaining) / Float(restTime))
             print(time)
@@ -147,8 +166,29 @@ class PomodoroViewController: UIViewController {
         return String(format:"%02d", number)
     }
     
+    @objc func longPressReset(gesture: UILongPressGestureRecognizer) {
+        if gesture.state == UIGestureRecognizer.State.began {
+            pauseTimer()
+            resetToBeginning()
+            startPauseButton.setBackgroundImage(UIImage(named: "play"), for: .normal)
+            self.startPauseButton.tintColor = .systemBlue
+            self.studyRestLabel.text = "Estude!"
+            self.minutesLabel.textColor = .black
+            self.secondsLabel.textColor = .black
+            self.colonLabel.textColor = .black
+            self.studyRestLabel.textColor = .black
+            self.progressView.progressTintColor = .black
+        }
+    }
     
-
+    func addLongPressGesture(){
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressReset))
+        longPress.minimumPressDuration = 1.5
+        self.startPauseButton.addGestureRecognizer(longPress)
+    }
+    
+    
+    
     /*
     // MARK: - Navigation
 
