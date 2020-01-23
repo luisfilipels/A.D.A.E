@@ -14,6 +14,8 @@
 		C83F77D923D71C2A009E6D65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C83F77D823D71C2A009E6D65 /* Assets.xcassets */; };
 		C83F77DC23D71C2A009E6D65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C83F77DA23D71C2A009E6D65 /* LaunchScreen.storyboard */; };
 		C83F77E723D71C2A009E6D65 /* A_D_A_ETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83F77E623D71C2A009E6D65 /* A_D_A_ETests.swift */; };
+		C85E104923DA322F0054E9F3 /* MateriaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85E104823DA322F0054E9F3 /* MateriaTableViewCell.swift */; };
+		C85E104B23DA38450054E9F3 /* InicioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85E104A23DA38450054E9F3 /* InicioTableViewCell.swift */; };
 		C8E8839A23D88AA1008D98CD /* QuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E8839923D88AA1008D98CD /* QuoteModel.swift */; };
 		C8E8839F23D88CA9008D98CD /* QuoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E8839723D88A7F008D98CD /* QuoteRepository.swift */; };
 		C8E9C09A23D754970064E425 /* DayStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E9C09923D754970064E425 /* DayStepViewController.swift */; };
@@ -44,6 +46,8 @@
 		C83F77E223D71C2A009E6D65 /* A.D.A.ETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = A.D.A.ETests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C83F77E623D71C2A009E6D65 /* A_D_A_ETests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = A_D_A_ETests.swift; sourceTree = "<group>"; };
 		C83F77E823D71C2A009E6D65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C85E104823DA322F0054E9F3 /* MateriaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MateriaTableViewCell.swift; sourceTree = "<group>"; };
+		C85E104A23DA38450054E9F3 /* InicioTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InicioTableViewCell.swift; sourceTree = "<group>"; };
 		C8E8839723D88A7F008D98CD /* QuoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteRepository.swift; sourceTree = "<group>"; };
 		C8E8839923D88AA1008D98CD /* QuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteModel.swift; sourceTree = "<group>"; };
 		C8E9C09923D754970064E425 /* DayStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayStepViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +131,8 @@
 				C8EDB4D723D9EE8A00501242 /* EditLectureViewController.swift */,
 				C8E9C09B23D755B10064E425 /* PomodoroViewController.swift */,
 				C8E9C09923D754970064E425 /* DayStepViewController.swift */,
+				C85E104823DA322F0054E9F3 /* MateriaTableViewCell.swift */,
+				C85E104A23DA38450054E9F3 /* InicioTableViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -252,8 +258,10 @@
 			files = (
 				C83F77D723D71C28009E6D65 /* A_D_A_E.xcdatamodeld in Sources */,
 				C83F77CB23D71C28009E6D65 /* AppDelegate.swift in Sources */,
+				C85E104B23DA38450054E9F3 /* InicioTableViewCell.swift in Sources */,
 				C8E9C0A023D770CA0064E425 /* ReminderTableViewCell.swift in Sources */,
 				C8EDB4D823D9EE8A00501242 /* EditLectureViewController.swift in Sources */,
+				C85E104923DA322F0054E9F3 /* MateriaTableViewCell.swift in Sources */,
 				C8E9C09C23D755B10064E425 /* PomodoroViewController.swift in Sources */,
 				C83F77CD23D71C28009E6D65 /* SceneDelegate.swift in Sources */,
 				C8E8839A23D88AA1008D98CD /* QuoteModel.swift in Sources */,

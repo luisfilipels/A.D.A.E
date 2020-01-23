@@ -6,6 +6,7 @@
 //  Copyright © 2020 Apple Developer Academy Foundation. All rights reserved.
 //
 
+/*
 import XCTest
 @testable import A_D_A_E
 
@@ -32,3 +33,4 @@ class A_D_A_ETests: XCTestCase {
     }
 
 }
+*/

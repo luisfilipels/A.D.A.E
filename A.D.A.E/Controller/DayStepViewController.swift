@@ -45,7 +45,7 @@ class DayStepViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if let cell = classTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? ReminderTableViewCell {
+        if (classTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? ReminderTableViewCell) != nil {
             //cell.endTimeButton.titleLabel?.text = "teste"
         }
     }
