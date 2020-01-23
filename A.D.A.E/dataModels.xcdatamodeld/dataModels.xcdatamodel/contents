@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Day" representedClassName="Day" syncable="YES" codeGenerationType="class">
+        <relationship name="lectures" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Lecture" inverseName="dayThatHappens" inverseEntity="Lecture"/>
+    </entity>
+    <entity name="Lecture" representedClassName="Lecture" syncable="YES" codeGenerationType="class">
+        <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="lectureName" optional="YES" attributeType="String"/>
+        <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="dayThatHappens" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Day" inverseName="lectures" inverseEntity="Day"/>
+    </entity>
+    <elements>
+        <element name="Lecture" positionX="-54" positionY="-9" width="128" height="103"/>
+        <element name="Day" positionX="360.43359375" positionY="-31.96484375" width="128" height="58"/>
+    </elements>
+</model>
