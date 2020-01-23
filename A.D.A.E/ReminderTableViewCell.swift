@@ -7,23 +7,35 @@
 //
 
 import UIKit
+import EventKit
 import Foundation
 
 class ReminderTableViewCell: UITableViewCell {
 
     @IBOutlet weak var timeView: UIView!
-    @IBOutlet weak var reminderButton: UIButton!
     @IBOutlet weak var startTimeButton: UIButton!
     @IBOutlet weak var endTimeButton: UIButton!
+    @IBOutlet weak var reminderButton: UIButton!
     
     var startTime : Date?
     var endTime : Date?
     
+    var eventStore = EKEventStore()
+    var calendars: Array<EKCalendar> = []
+    
     
     
     override func awakeFromNib() {
-        print(#function)
         super.awakeFromNib()
+        
+        eventStore.requestAccess(to: EKEntityType.reminder, completion: {(granted, error) in
+            if !granted {
+                print("Access to store not granted!")
+            }
+        })
+        
+        calendars = eventStore.calendars(for: EKEntityType.reminder)
+        
         startTimeButton.titleLabel?.adjustsFontSizeToFitWidth = true
         endTimeButton.titleLabel?.adjustsFontSizeToFitWidth = true
         timeView.layer.cornerRadius = 10
@@ -35,18 +47,26 @@ class ReminderTableViewCell: UITableViewCell {
         reminderButton.layer.cornerRadius = 10
         reminderButton.clipsToBounds = true
         
+        if let date = UserDefaults.standard.object(forKey: "startHour") as? Date {
+            startTime = date
+        }
+        
+        if let date = UserDefaults.standard.object(forKey: "endHour") as? Date {
+            endTime = date
+        }
+        
         if let startTime = self.startTime {
             let componentsStart = Calendar.current.dateComponents([.hour, .minute], from: startTime)
             let hour2 = componentsStart.hour!
             let minute2 = componentsStart.minute!
-            self.startTimeButton.titleLabel?.text = "\(String(format: "%02d", hour2)):\(String(format: "%02d", minute2))"
+            self.startTimeButton.setTitle("\(String(format: "%02d", hour2)):\(String(format: "%02d", minute2))", for: .normal)
         }
         
         if let endTime = self.endTime {
             let componentsEnd = Calendar.current.dateComponents([.hour, .minute], from: endTime)
             let hour2 = componentsEnd.hour!
             let minute2 = componentsEnd.minute!
-            self.endTimeButton.titleLabel?.text = "\(String(format: "%02d", hour2)):\(String(format: "%02d", minute2))"
+            self.endTimeButton.setTitle("\(String(format: "%02d", hour2)):\(String(format: "%02d", minute2))", for: .normal)
         }
         // Initialization code
     }
@@ -72,13 +92,7 @@ class ReminderTableViewCell: UITableViewCell {
             let hour = componentsStart.hour!
             let minute = componentsStart.minute!
             self.startTimeButton.setTitle("\(String(format: "%02d", hour)):\(String(format: "%02d", minute))", for: .normal)
-            if let endTime = self.endTime {
-                let componentsEnd = Calendar.current.dateComponents([.hour, .minute], from: endTime)
-                let hour2 = componentsEnd.hour!
-                let minute2 = componentsEnd.minute!
-                self.endTimeButton.setTitle("\(String(format: "%02d", hour2)):\(String(format: "%02d", minute2))", for: .normal)
-            }
-            
+            UserDefaults.standard.set(self.startTime, forKey: "startHour")
             
             alert.dismiss(animated: true, completion: nil)
         }
@@ -112,15 +126,11 @@ class ReminderTableViewCell: UITableViewCell {
             let components = Calendar.current.dateComponents([.hour, .minute], from: self.endTime!)
             let hour = components.hour!
             let minute = components.minute!
-            self.endTimeButton.titleLabel?.text = "\(String(format: "%02d", hour)):\(String(format: "%02d", minute))"
+            self.endTimeButton.setTitle("\(String(format: "%02d", hour)):\(String(format: "%02d", minute))", for: .normal)
+            UserDefaults.standard.set(self.endTime, forKey: "endHour")
+
             alert.dismiss(animated: true, completion: nil)
             
-            if let startTime = self.startTime {
-                let componentsStart = Calendar.current.dateComponents([.hour, .minute], from: startTime)
-                let hour2 = componentsStart.hour!
-                let minute2 = componentsStart.minute!
-                self.startTimeButton.titleLabel?.text = "\(String(format: "%02d", hour2)):\(String(format: "%02d", minute2))"
-            }
         }
         let action2 = UIAlertAction(title: "Cancelar", style: .cancel) { (action:UIAlertAction) in
             print("You've pressed cancelar");
@@ -154,6 +164,20 @@ class ReminderTableViewCell: UITableViewCell {
             self.endTimeButton.titleLabel?.text = "\(String(format: "%02d", hour2)):\(String(format: "%02d", minute2))"
         }
     }
+    
+    @IBAction func reminderButtonPressed(_ sender: Any) {
+        let reminder = EKReminder(eventStore: self.eventStore)
+        
+        reminder.title = "Hora de estudar!"
+        reminder.calendar = eventStore.defaultCalendarForNewReminders()
+        
+        do {
+            try eventStore.save(reminder, commit: true)
+        } catch let error {
+            print("Failed to set reminder!")
+        }
+    }
+    
     
     
 
