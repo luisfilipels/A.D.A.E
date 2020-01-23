@@ -73,8 +73,8 @@ class PomodoroViewController: UIViewController {
             if intervals[currentInterval] == .Study {
                 timeRemaining = studyTime
                 self.studyRestLabel.text = "Estude!"
-                self.minutesLabel.textColor = .systemGreen
-                self.secondsLabel.textColor = .systemGreen
+                self.minutesLabel.textColor = .green
+                self.secondsLabel.textColor = .green
             } else {
                 timeRemaining = restTime
                 self.studyRestLabel.text = "Descanse!"
