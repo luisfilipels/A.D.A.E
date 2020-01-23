@@ -26,8 +26,8 @@ class PomodoroViewController: UIViewController {
     
     var currentInterval = 0
     
-    let studyTime = 10
-    let restTime = 5
+    let studyTime = 30
+    let restTime = 15
     var timeRemaining = 0
     
     var timer = Timer()
@@ -54,9 +54,11 @@ class PomodoroViewController: UIViewController {
     @IBAction func startPauseButtonPressed(_ sender: Any) {
         if timer.isValid {
             // Trocar desenho do botão
+            startPauseButton.setBackgroundImage(UIImage(named: "PLAYBUTTON"), for: .normal)
             pauseTimer()
         } else {
             // Trocar desenho também
+            startPauseButton.setBackgroundImage(UIImage(named: "StopSign"), for: .normal)
             if currentInterval == 0 && timeRemaining == studyTime {
                 startNextInterval()
             } else {
@@ -109,10 +111,11 @@ class PomodoroViewController: UIViewController {
         minutesLabel.text = formatMinuteOrSecond(minutes)
         secondsLabel.text = formatMinuteOrSecond(seconds)
         
-        if (intervals[currentInterval] == .Study) {
+        if (intervals[currentInterval] == .Rest) {
             print("Study")
             print(timeRemaining)
             print(studyTime)
+            progressView.progressTintColor = .green
             
             let time = (Float(timeRemaining) / Float(studyTime))
             print(time)
@@ -121,7 +124,9 @@ class PomodoroViewController: UIViewController {
             print("Rest")
             print(timeRemaining)
             print(studyTime)
-            let time = (Float(timeRemaining) / Float(studyTime))
+            progressView.progressTintColor = .red
+            
+            let time = (Float(timeRemaining) / Float(restTime))
             print(time)
             progressView.setProgress(time, animated: false)
         }
