@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import EventKit
+import CoreData
 import Foundation
 
 class ReminderTableViewCell: UITableViewCell {
@@ -21,21 +21,10 @@ class ReminderTableViewCell: UITableViewCell {
     var startTime : Date?
     var endTime : Date?
     
-    var eventStore = EKEventStore()
-    var calendars: Array<EKCalendar> = []
-    
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        eventStore.requestAccess(to: EKEntityType.reminder, completion: {(granted, error) in
-            if !granted {
-                print("Access to store not granted!")
-            }
-        })
-        
-        calendars = eventStore.calendars(for: EKEntityType.reminder)
         
         startTimeButton.titleLabel?.adjustsFontSizeToFitWidth = true
         endTimeButton.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -191,19 +180,84 @@ class ReminderTableViewCell: UITableViewCell {
     }
     
     @IBAction func reminderButtonPressed(_ sender: Any) {
-        let reminder = EKReminder(eventStore: self.eventStore)
         
-        reminder.title = "Hora de estudar!"
-        reminder.calendar = eventStore.defaultCalendarForNewReminders()
+    }
+}
+
+extension Day {
+    convenience init?(numberOnWeek: Int) {
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        let context = delegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "Day", in: context)!
+        self.init(entity: entity, insertInto: context)
+        self.numberInWeek = Int64(numberOnWeek)
         
         do {
-            try eventStore.save(reminder, commit: true)
-        } catch let error {
-            print("Failed to set reminder!")
+            try context.save()
+            
+        } catch let error as NSError {
+            print("Could not save day. \(error)")
         }
     }
     
+    static func saveChanges() {
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let context = delegate.persistentContainer.viewContext
+        
+        do {
+            try context.save()
+            
+        } catch let error as NSError {
+            print("Could not save day. \(error)")
+        }
+    }
     
+    static func getAll(with predicate: NSPredicate = NSPredicate(value: true)) -> [Day] {
+        let fetchRequest = NSFetchRequest<Day>(entityName: "Day")
+        fetchRequest.predicate = predicate
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return [] }
+        let context = delegate.persistentContainer.viewContext
+        guard let days = try? context.fetch(fetchRequest) else { return [] }
+        
+        return days
+    }
     
+    static func getDay(in day: Int) -> [Day] {
+        let predicate = NSPredicate(format: "numberInWeek == %i", day)
+        return Day.getAll(with: predicate)
+    }
+}
 
+extension Lecture {
+    convenience init?(name: String, startTime: Date, endTime: Date) {
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        let context = delegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "Lecture", in: context)!
+        self.init(entity: entity, insertInto: context)
+        self.name = name
+        self.startTime = startTime
+        self.endTime = endTime
+        
+        do {
+            try context.save()
+            
+        } catch let error as NSError {
+            print("Could not save lecture. \(error)")
+        }
+    }
+    
+    static func getAll(with predicate: NSPredicate = NSPredicate(value: true)) -> [Lecture] {
+        let fetchRequest = NSFetchRequest<Lecture>(entityName: "Lecture")
+        fetchRequest.predicate = NSPredicate(value: true)
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return [] }
+        let context = delegate.persistentContainer.viewContext
+        guard let days = try? context.fetch(fetchRequest) else { return [] }
+        
+        return days
+    }
+    
+    static func getLecture(with name: String) -> [Lecture] {
+        let predicate = NSPredicate(format: "name == %i", name)
+        return Lecture.getAll(with: predicate)
+    }
 }
