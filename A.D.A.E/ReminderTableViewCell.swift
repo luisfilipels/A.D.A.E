@@ -16,6 +16,7 @@ class ReminderTableViewCell: UITableViewCell {
     @IBOutlet weak var startTimeButton: UIButton!
     @IBOutlet weak var endTimeButton: UIButton!
     @IBOutlet weak var reminderButton: UIButton!
+    @IBOutlet weak var reminderLabel: UILabel!
     
     var startTime : Date?
     var endTime : Date?
@@ -91,8 +92,19 @@ class ReminderTableViewCell: UITableViewCell {
             let componentsStart = Calendar.current.dateComponents([.hour, .minute], from: self.startTime!)
             let hour = componentsStart.hour!
             let minute = componentsStart.minute!
-            self.startTimeButton.setTitle("\(String(format: "%02d", hour)):\(String(format: "%02d", minute))", for: .normal)
-            UserDefaults.standard.set(self.startTime, forKey: "startHour")
+        self.startTimeButton.setTitle("\(String(format: "%02d", hour)):\(String(format: "%02d", minute))", for: .normal)
+            
+            if let startTime = self.startTime,
+                let endTime = self.endTime {
+                if startTime > endTime {
+                    self.reminderLabel.text = "Horário inválido (inicio maior que fim). Alterações não salvas."
+                    self.reminderLabel.textColor = .systemRed
+                } else {
+                    self.reminderLabel.text = "Este é o horário calculado para seus estudos hoje. Clique para alterar."
+                    self.reminderLabel.textColor = UIColor(displayP3Red: 142/255, green: 142/255, blue: 147/255, alpha: 1)
+                    UserDefaults.standard.set(self.startTime, forKey: "startHour")
+                }
+            }
             
             alert.dismiss(animated: true, completion: nil)
         }
@@ -127,6 +139,19 @@ class ReminderTableViewCell: UITableViewCell {
             let hour = components.hour!
             let minute = components.minute!
             self.endTimeButton.setTitle("\(String(format: "%02d", hour)):\(String(format: "%02d", minute))", for: .normal)
+            
+            if let startTime = self.startTime,
+                let endTime = self.endTime {
+                if startTime > endTime {
+                    self.reminderLabel.text = "Horário inválido (inicio maior que fim). Alterações não salvas."
+                    self.reminderLabel.textColor = .systemRed
+                } else {
+                    self.reminderLabel.text = "Este é o horário calculado para seus estudos hoje. Clique para alterar."
+                    self.reminderLabel.textColor = UIColor(displayP3Red: 142/255, green: 142/255, blue: 147/255, alpha: 1)
+                    UserDefaults.standard.set(self.startTime, forKey: "startHour")
+                }
+            }
+            
             UserDefaults.standard.set(self.endTime, forKey: "endHour")
 
             alert.dismiss(animated: true, completion: nil)

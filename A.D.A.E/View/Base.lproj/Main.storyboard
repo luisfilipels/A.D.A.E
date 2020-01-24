@@ -188,6 +188,7 @@
                                         <connections>
                                             <outlet property="endTimeButton" destination="xk6-or-P6L" id="hUn-CP-hMX"/>
                                             <outlet property="reminderButton" destination="mr0-iV-R0b" id="IMx-4T-wyV"/>
+                                            <outlet property="reminderLabel" destination="F3i-Fa-rGI" id="mAS-5O-zKN"/>
                                             <outlet property="startTimeButton" destination="v83-Qh-G41" id="tyI-d3-Sq2"/>
                                             <outlet property="timeView" destination="rdo-Nb-Eq2" id="4GE-af-2lW"/>
                                         </connections>
@@ -407,7 +408,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UB5-WO-w68"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Xik-dQ-xZH"/>
+                    <tabBarItem key="tabBarItem" title="Pomodoro" id="Xik-dQ-xZH"/>
                     <navigationItem key="navigationItem" title="Pomodoro" largeTitleDisplayMode="always" id="lfu-wm-bQc"/>
                     <connections>
                         <outlet property="StudyRestLabel" destination="o2u-t6-Coq" id="sGj-lz-2Hf"/>
