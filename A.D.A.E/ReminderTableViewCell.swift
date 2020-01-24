@@ -9,6 +9,7 @@
 import UIKit
 import EventKit
 import Foundation
+import UserNotifications
 
 class ReminderTableViewCell: UITableViewCell {
 
@@ -28,6 +29,8 @@ class ReminderTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+//        sendNotification()
         
         eventStore.requestAccess(to: EKEntityType.reminder, completion: {(granted, error) in
             if !granted {
@@ -193,6 +196,12 @@ class ReminderTableViewCell: UITableViewCell {
     @IBAction func reminderButtonPressed(_ sender: Any) {
         let reminder = EKReminder(eventStore: self.eventStore)
         
+        
+        if (endTime != nil && startTime != nil && startTime! < endTime!) {
+            sendNotification()
+        }
+        
+        
         reminder.title = "Hora de estudar!"
         reminder.calendar = eventStore.defaultCalendarForNewReminders()
         
@@ -203,7 +212,51 @@ class ReminderTableViewCell: UITableViewCell {
         }
     }
     
+    func sendNotification() {
+        
+        let contentStart = UNMutableNotificationContent()
+        contentStart.title = "Hora de estudar!"
+        contentStart.subtitle = "enviado do A.D.A.E"
+        contentStart.body = "Seu horário para estudos começou."
+        
+        let contentEnd = UNMutableNotificationContent()
+        contentEnd.title = "Hora de descansar!"
+        contentEnd.subtitle = "enviado do A.D.A.E"
+        contentEnd.body = "Seu horário para descanso começou."
+        
+        var dateComponentsStart = DateComponents()
+        var dateComponentsEnd = DateComponents()
+        let calendar = Calendar.current
+        
+        let hourStart = calendar.component(.hour, from: startTime!)
+        let minuteStart = calendar.component(.minute, from: startTime!)
+        
+        let hourEnd = calendar.component(.hour, from: endTime!)
+        let minuteEnd = calendar.component(.minute, from: endTime!)
+        
+        dateComponentsStart.hour = hourStart
+        dateComponentsStart.minute = minuteStart
+        dateComponentsStart.weekday = 6 // Monday
+        
+        dateComponentsEnd.hour = hourEnd
+        dateComponentsEnd.minute = minuteEnd
+        dateComponentsEnd.weekday = 6
+        
+        // 3
+        let triggerStart = UNCalendarNotificationTrigger(dateMatching: dateComponentsStart, repeats: false)
+        let requestStart = UNNotificationRequest(identifier: "notification.id.01", content: contentStart, trigger: triggerStart)
+        
+        let triggerEnd = UNCalendarNotificationTrigger(dateMatching: dateComponentsEnd, repeats: false)
+        let requestEnd = UNNotificationRequest(identifier: "notification.id.02", content: contentEnd, trigger: triggerEnd)
+        
+        // 4
+        UNUserNotificationCenter.current().add(requestStart) { (error) in
+            print(error)
+        }
+        
+        UNUserNotificationCenter.current().add(requestEnd) { (error) in
+            print(error)
+        }
+    }
     
-    
-
 }

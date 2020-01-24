@@ -23,6 +23,7 @@ class DayStepViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         quoteView.layer.cornerRadius = 10
         quoteView.layer.shadowOffset = CGSize(width: 0, height: 3)
         quoteView.layer.shadowRadius = 1
@@ -43,6 +44,8 @@ class DayStepViewController: UIViewController {
         }
         
     }
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         if (classTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? ReminderTableViewCell) != nil {
