@@ -10,7 +10,6 @@ import UIKit
 
 class EditLectureViewController: UIViewController {
     @IBOutlet weak var pageTitle: UINavigationBar!
-    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -51,11 +50,47 @@ extension EditLectureViewController: UITableViewDataSource, UITableViewDelegate 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "cell_two") as? InicioTableViewCell
                 cell?.startLabel.text = "Início"
                 return cell!
+            case 2:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_two") as? InicioTableViewCell
+                cell?.startLabel.text = "Fim"
+                return cell!
             default:
                 return UITableViewCell()
             }
         case 1:
-            return UITableViewCell()
+            switch indexPath.row {
+            case 0:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
+                cell?.weekDayLabel.text = "Domingo"
+                return cell!
+            case 1:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
+                cell?.weekDayLabel.text = "Segunda"
+                return cell!
+            case 2:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
+                cell?.weekDayLabel.text = "Terça"
+                return cell!
+            case 3:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
+                cell?.weekDayLabel.text = "Quarta"
+                return cell!
+            case 4:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
+                cell?.weekDayLabel.text = "Quinta"
+                return cell!
+            case 5:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
+                cell?.weekDayLabel.text = "Sexta"
+                return cell!
+            case 6:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
+                cell?.weekDayLabel.text = "Sábado"
+                return cell!
+
+            default:
+                return UITableViewCell()
+            }
         default:
             return UITableViewCell()
         }

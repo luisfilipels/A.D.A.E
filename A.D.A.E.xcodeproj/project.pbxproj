@@ -23,6 +23,7 @@
 		C8E9C0A023D770CA0064E425 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E9C09F23D770CA0064E425 /* ReminderTableViewCell.swift */; };
 		C8EDB4D623D9E95500501242 /* dataModels.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C8EDB4D423D9E95500501242 /* dataModels.xcdatamodeld */; };
 		C8EDB4D823D9EE8A00501242 /* EditLectureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EDB4D723D9EE8A00501242 /* EditLectureViewController.swift */; };
+		C8EFF90D23DB0EAB00C2D530 /* SemanaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EFF90C23DB0EAB00C2D530 /* SemanaTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		C8E9C09F23D770CA0064E425 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
 		C8EDB4D523D9E95500501242 /* dataModels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = dataModels.xcdatamodel; sourceTree = "<group>"; };
 		C8EDB4D723D9EE8A00501242 /* EditLectureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLectureViewController.swift; sourceTree = "<group>"; };
+		C8EFF90C23DB0EAB00C2D530 /* SemanaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanaTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				C8E9C09923D754970064E425 /* DayStepViewController.swift */,
 				C85E104823DA322F0054E9F3 /* MateriaTableViewCell.swift */,
 				C85E104A23DA38450054E9F3 /* InicioTableViewCell.swift */,
+				C8EFF90C23DB0EAB00C2D530 /* SemanaTableViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				C85E104923DA322F0054E9F3 /* MateriaTableViewCell.swift in Sources */,
 				C8E9C09C23D755B10064E425 /* PomodoroViewController.swift in Sources */,
 				C83F77CD23D71C28009E6D65 /* SceneDelegate.swift in Sources */,
+				C8EFF90D23DB0EAB00C2D530 /* SemanaTableViewCell.swift in Sources */,
 				C8E8839A23D88AA1008D98CD /* QuoteModel.swift in Sources */,
 				C8EDB4D623D9E95500501242 /* dataModels.xcdatamodeld in Sources */,
 				C8E9C09A23D754970064E425 /* DayStepViewController.swift in Sources */,
