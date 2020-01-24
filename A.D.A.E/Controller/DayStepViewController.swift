@@ -21,7 +21,6 @@ class DayStepViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         if UserDefaults.standard.object(forKey: "firstStart") == nil  || UserDefaults.standard.object(forKey: "firstStart") as? Bool == true{
             UserDefaults.standard.set(false, forKey: "firstStart")
             
@@ -70,7 +69,6 @@ class DayStepViewController: UIViewController, UITableViewDataSource, UITableVie
         let days = Day.getDay(in: 0)
         let lectures = days[0].classesInDay?.allObjects as! [Lecture]
         lecturesToday = lectures
-        
         quoteView.layer.cornerRadius = 10
         quoteView.layer.shadowOffset = CGSize(width: 0, height: 3)
         quoteView.layer.shadowRadius = 1
@@ -91,6 +89,8 @@ class DayStepViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         
     }
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         if (classTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? ReminderTableViewCell) != nil {
