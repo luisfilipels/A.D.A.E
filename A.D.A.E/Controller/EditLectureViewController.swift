@@ -8,9 +8,13 @@
 
 import UIKit
 
-class EditLectureViewController: UIViewController {
+class EditLectureViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var pageTitle: UINavigationBar!
     @IBOutlet weak var tableView: UITableView!
+    
+    var lectureName: String?
+    var lectureStart: Date?
+    var lectureEnd: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,124 +38,134 @@ class EditLectureViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
-}
-
-extension EditLectureViewController: UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
-            switch indexPath.row {
+            switch indexPath.section {
             case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_one") as? MateriaTableViewCell
-                cell?.materiaTextField.text = "Matemática"
-                return cell!
+                switch indexPath.row {
+                case 0:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "cell_one") as? MateriaTableViewCell
+                    cell?.materiaTextField.text = lectureName
+                    return cell!
+                case 1:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "cell_two") as? InicioTableViewCell
+                    cell?.startLabel.text = "Início"
+                    let calendar = Calendar.current
+                    
+                    let hour = calendar.component(.hour, from: lectureStart!)
+                    let minute = calendar.component(.minute, from: lectureStart!)
+                    
+                    cell?.hourLabel.setTitle("\(String(format: "%02d", hour)):\(String(format: "%02d", minute))", for: .normal)
+                    return cell!
+                case 2:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "cell_two") as? InicioTableViewCell
+                    cell?.startLabel.text = "Fim"
+                    
+                    let calendar = Calendar.current
+                    
+                    let hour = calendar.component(.hour, from: lectureEnd!)
+                    let minute = calendar.component(.minute, from: lectureEnd!)
+                    
+                    cell?.hourLabel.setTitle("\(String(format: "%02d", hour)):\(String(format: "%02d", minute))", for: .normal)
+                    
+                    return cell!
+                default:
+                    return UITableViewCell()
+                }
             case 1:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_two") as? InicioTableViewCell
-                cell?.startLabel.text = "Início"
-                return cell!
-            case 2:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_two") as? InicioTableViewCell
-                cell?.startLabel.text = "Fim"
-                return cell!
-            default:
-                return UITableViewCell()
-            }
-        case 1:
-            switch indexPath.row {
-            case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
-                cell?.weekDayLabel.text = "Domingo"
-                return cell!
-            case 1:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
-                cell?.weekDayLabel.text = "Segunda"
-                return cell!
-            case 2:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
-                cell?.weekDayLabel.text = "Terça"
-                return cell!
-            case 3:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
-                cell?.weekDayLabel.text = "Quarta"
-                return cell!
-            case 4:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
-                cell?.weekDayLabel.text = "Quinta"
-                return cell!
-            case 5:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
-                cell?.weekDayLabel.text = "Sexta"
-                return cell!
-            case 6:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
-                cell?.weekDayLabel.text = "Sábado"
-                return cell!
+                switch indexPath.row {
+                case 0:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
+                    cell?.weekDayLabel.text = "Domingo"
+                    return cell!
+                case 1:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
+                    cell?.weekDayLabel.text = "Segunda"
+                    return cell!
+                case 2:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
+                    cell?.weekDayLabel.text = "Terça"
+                    return cell!
+                case 3:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
+                    cell?.weekDayLabel.text = "Quarta"
+                    return cell!
+                case 4:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
+                    cell?.weekDayLabel.text = "Quinta"
+                    return cell!
+                case 5:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
+                    cell?.weekDayLabel.text = "Sexta"
+                    return cell!
+                case 6:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "cell_three") as? SemanaTableViewCell
+                    cell?.weekDayLabel.text = "Sábado"
+                    return cell!
 
+                default:
+                    return UITableViewCell()
+                }
             default:
                 return UITableViewCell()
             }
-        default:
-            return UITableViewCell()
         }
-    }
-    
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            // let disciplinaSelecionada: Disciplina = disciplinas[indexPath.row]
-//            self.performSegue(withIdentifier: "editLectureSegue", sender: "Matéria")
+        
+        
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            if indexPath.section == 0 {
+                // let disciplinaSelecionada: Disciplina = disciplinas[indexPath.row]
+    //            self.performSegue(withIdentifier: "editLectureSegue", sender: "Matéria")
+            }
         }
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 3 : 7
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? "Nome e horário" : "Dias para repetir"
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30
-    }
-    
-    
-    
-    /*func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            if indexPath.row == 0 {
-                let cell = tableView
+        
+        func numberOfSections(in tableView: UITableView) -> Int {
+            return 2
+        }
+        
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return section == 0 ? 3 : 7
+        }
+        
+        func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+            return section == 0 ? "Nome e horário" : "Dias para repetir"
+        }
+        
+        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            return 40
+        }
+        
+        func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+            return 0
+        }
+        
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return UITableView.automaticDimension
+        }
+        
+        func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+            return 30
+        }
+        
+        
+        
+        /*func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            if indexPath.section == 0 {
+                if indexPath.row == 0 {
+                    let cell = tableView
+                } else {
+                    
+                }
             } else {
-                
-            }
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SetReminderCell", for: indexPath) as! ReminderTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SetReminderCell", for: indexPath) as! ReminderTableViewCell
 
-            return cell
+                return cell
+            }
+
+        }*/
+        
+        func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+            print(#function)
         }
 
-    }*/
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        print(#function)
-    }
-    
-    
 }

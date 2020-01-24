@@ -101,16 +101,20 @@ class DayStepViewController: UIViewController, UITableViewDataSource, UITableVie
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if  segue.identifier == "editLectureSegue",
             let destination = segue.destination as? EditLectureViewController,
-            let materia = sender as? String
+            let materia = sender as? (lectureName: String, startTime: Date, endTime: Date)
         {
-            destination.title = materia
+            destination.lectureName = materia.lectureName
+            destination.lectureStart = materia.startTime
+            destination.lectureEnd = materia.endTime
+            destination.title = "Editar aula"
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             // let disciplinaSelecionada: Disciplina = disciplinas[indexPath.row]
-            self.performSegue(withIdentifier: "editLectureSegue", sender: "Matéria")
+            let lectureSelected = lecturesToday?[indexPath.row]
+            self.performSegue(withIdentifier: "editLectureSegue", sender: (lectureName: lectureSelected!.name, startTime: lectureSelected?.startTime, endTime: lectureSelected?.endTime))
         }
     }
     

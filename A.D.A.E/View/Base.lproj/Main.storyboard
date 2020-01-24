@@ -25,11 +25,11 @@
             </objects>
             <point key="canvasLocation" x="854" y="-772"/>
         </scene>
-        <!--Item-->
+        <!--Degrau de Hoje-->
         <scene sceneID="Nwc-a9-Fbn">
             <objects>
                 <navigationController id="RBv-oG-bGQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="4VK-SG-Lud"/>
+                    <tabBarItem key="tabBarItem" title="Degrau de Hoje" image="StairwayToHell" id="4VK-SG-Lud"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="SPJ-He-FVS">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -231,7 +231,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uZQ-KL-4Kx"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Degrau de Hoje" id="V9u-vb-kCN"/>
                     <navigationItem key="navigationItem" title="Degrau de Hoje" id="DSq-ze-BL0"/>
                     <connections>
                         <outlet property="classTableView" destination="iLP-rQ-Buy" id="dbh-MJ-vKw"/>
@@ -307,7 +306,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNg-cS-83Y">
-                                                    <rect key="frame" x="351" y="7" width="40" height="30"/>
+                                                    <rect key="frame" x="340" y="7" width="51" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Detail"/>
                                                 </button>
@@ -494,7 +493,6 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Pomodoro" id="Xik-dQ-xZH"/>
                     <navigationItem key="navigationItem" title="Pomodoro" largeTitleDisplayMode="always" id="lfu-wm-bQc"/>
                     <connections>
                         <outlet property="colonLabel" destination="6Ke-Gn-mvM" id="hTB-L8-n7B"/>
@@ -502,18 +500,18 @@
                         <outlet property="progressView" destination="qHd-0B-xao" id="fd8-ic-oXH"/>
                         <outlet property="secondsLabel" destination="Hgb-2b-eYL" id="Zks-G0-Rry"/>
                         <outlet property="startPauseButton" destination="3rp-xb-wih" id="fHJ-8m-Ppg"/>
-                        <outlet property="studyRestLabel" destination="1h8-oA-cmq" id="Cp4-N3-4hG"/>
+                        <outlet property="studyRestLabel" destination="1h8-oA-cmq" id="Rgf-cX-Tz0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DBQ-AY-9Mj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="560.49107142857144" y="843.47826086956525"/>
         </scene>
-        <!--Item-->
+        <!--Pomodoro-->
         <scene sceneID="9eU-qD-gqE">
             <objects>
                 <navigationController id="XiR-fG-5K7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="tDm-l2-2c8"/>
+                    <tabBarItem key="tabBarItem" title="Pomodoro" image="clock.fill" catalog="system" id="tDm-l2-2c8"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Azz-7V-GlF">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -529,7 +527,9 @@
     </scenes>
     <resources>
         <image name="Caminho 23" width="106.5" height="79"/>
+        <image name="StairwayToHell" width="23" height="23"/>
         <image name="checkmark" catalog="system" width="64" height="56"/>
+        <image name="clock.fill" catalog="system" width="64" height="60"/>
         <image name="play" width="200" height="200"/>
     </resources>
 </document>
