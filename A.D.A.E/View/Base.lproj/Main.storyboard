@@ -343,14 +343,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3rp-xb-wih">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3rp-xb-wih">
                                 <rect key="frame" x="98" y="438" width="219" height="219"/>
                                 <state key="normal" backgroundImage="play"/>
                                 <connections>
                                     <action selector="startPauseButtonPressed:" destination="xR7-XK-orI" eventType="touchUpInside" id="EaP-6m-ztw"/>
                                 </connections>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qHd-0B-xao">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHd-0B-xao">
                                 <rect key="frame" x="20" y="312" width="374" height="2"/>
                                 <color key="progressTintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             </progressView>
