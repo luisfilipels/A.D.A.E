@@ -79,10 +79,10 @@ class PomodoroViewController: UIViewController {
         if currentInterval < intervals.count {
             if intervals[currentInterval] == .Study {
                 AudioServicesPlaySystemSound (1336)
-                self.startPauseButton.tintColor = .systemBlue
+                self.startPauseButton.tintColor = .red
                 currentInterval += 1
                 timeRemaining = studyTime
-                self.studyRestLabel.text = "Estude!"
+                self.studyRestLabel.text = "Hora de Estudar!"
                 self.minutesLabel.textColor = .black
                 self.secondsLabel.textColor = .black
                 self.colonLabel.textColor = .black
@@ -91,15 +91,15 @@ class PomodoroViewController: UIViewController {
                 
             } else {
                 AudioServicesPlaySystemSound (1036)
-                self.startPauseButton.tintColor = .systemRed
+                self.startPauseButton.tintColor = .systemBlue
                 currentInterval += 1
                 timeRemaining = restTime
-                self.studyRestLabel.text = "Descanse!"
-                self.minutesLabel.textColor = .red
-                self.secondsLabel.textColor = .red
-                self.colonLabel.textColor = .red
-                self.studyRestLabel.textColor = .red
-                self.progressView.progressTintColor = .red
+                self.studyRestLabel.text = "Hora de Descansar!"
+                self.minutesLabel.textColor = .black
+                self.secondsLabel.textColor = .black
+                self.colonLabel.textColor = .black
+                self.studyRestLabel.textColor = .black
+                self.progressView.progressTintColor = .black
 
             }
             updateDisplay()
@@ -172,7 +172,7 @@ class PomodoroViewController: UIViewController {
             resetToBeginning()
             startPauseButton.setBackgroundImage(UIImage(named: "play"), for: .normal)
             self.startPauseButton.tintColor = .systemBlue
-            self.studyRestLabel.text = "Estude!"
+            self.studyRestLabel.text = "Vamos Estudar?!"
             self.minutesLabel.textColor = .black
             self.secondsLabel.textColor = .black
             self.colonLabel.textColor = .black
