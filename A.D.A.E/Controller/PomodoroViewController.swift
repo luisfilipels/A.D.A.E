@@ -103,6 +103,7 @@ class PomodoroViewController: UIViewController {
 
             }
             updateDisplay()
+            
             startTimer()
             
         } else {

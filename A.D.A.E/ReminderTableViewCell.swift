@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import CoreData
 import Foundation
 
 class ReminderTableViewCell: UITableViewCell {
 
     @IBOutlet weak var timeView: UIView!
-    @IBOutlet weak var reminderButton: UIButton!
     @IBOutlet weak var startTimeButton: UIButton!
     @IBOutlet weak var endTimeButton: UIButton!
+    @IBOutlet weak var reminderButton: UIButton!
+    @IBOutlet weak var reminderLabel: UILabel!
     
     var startTime : Date?
     var endTime : Date?
@@ -22,8 +24,8 @@ class ReminderTableViewCell: UITableViewCell {
     
     
     override func awakeFromNib() {
-        print(#function)
         super.awakeFromNib()
+        
         startTimeButton.titleLabel?.adjustsFontSizeToFitWidth = true
         endTimeButton.titleLabel?.adjustsFontSizeToFitWidth = true
         timeView.layer.cornerRadius = 10
@@ -35,18 +37,26 @@ class ReminderTableViewCell: UITableViewCell {
         reminderButton.layer.cornerRadius = 10
         reminderButton.clipsToBounds = true
         
+        if let date = UserDefaults.standard.object(forKey: "startHour") as? Date {
+            startTime = date
+        }
+        
+        if let date = UserDefaults.standard.object(forKey: "endHour") as? Date {
+            endTime = date
+        }
+        
         if let startTime = self.startTime {
             let componentsStart = Calendar.current.dateComponents([.hour, .minute], from: startTime)
             let hour2 = componentsStart.hour!
             let minute2 = componentsStart.minute!
-            self.startTimeButton.titleLabel?.text = "\(String(format: "%02d", hour2)):\(String(format: "%02d", minute2))"
+            self.startTimeButton.setTitle("\(String(format: "%02d", hour2)):\(String(format: "%02d", minute2))", for: .normal)
         }
         
         if let endTime = self.endTime {
             let componentsEnd = Calendar.current.dateComponents([.hour, .minute], from: endTime)
             let hour2 = componentsEnd.hour!
             let minute2 = componentsEnd.minute!
-            self.endTimeButton.titleLabel?.text = "\(String(format: "%02d", hour2)):\(String(format: "%02d", minute2))"
+            self.endTimeButton.setTitle("\(String(format: "%02d", hour2)):\(String(format: "%02d", minute2))", for: .normal)
         }
         // Initialization code
     }
@@ -71,14 +81,19 @@ class ReminderTableViewCell: UITableViewCell {
             let componentsStart = Calendar.current.dateComponents([.hour, .minute], from: self.startTime!)
             let hour = componentsStart.hour!
             let minute = componentsStart.minute!
-            self.startTimeButton.setTitle("\(String(format: "%02d", hour)):\(String(format: "%02d", minute))", for: .normal)
-            if let endTime = self.endTime {
-                let componentsEnd = Calendar.current.dateComponents([.hour, .minute], from: endTime)
-                let hour2 = componentsEnd.hour!
-                let minute2 = componentsEnd.minute!
-                self.endTimeButton.setTitle("\(String(format: "%02d", hour2)):\(String(format: "%02d", minute2))", for: .normal)
-            }
+        self.startTimeButton.setTitle("\(String(format: "%02d", hour)):\(String(format: "%02d", minute))", for: .normal)
             
+            if let startTime = self.startTime,
+                let endTime = self.endTime {
+                if startTime > endTime {
+                    self.reminderLabel.text = "Horário inválido (inicio maior que fim). Alterações não salvas."
+                    self.reminderLabel.textColor = .systemRed
+                } else {
+                    self.reminderLabel.text = "Este é o horário calculado para seus estudos hoje. Clique para alterar."
+                    self.reminderLabel.textColor = UIColor(displayP3Red: 142/255, green: 142/255, blue: 147/255, alpha: 1)
+                    UserDefaults.standard.set(self.startTime, forKey: "startHour")
+                }
+            }
             
             alert.dismiss(animated: true, completion: nil)
         }
@@ -112,15 +127,24 @@ class ReminderTableViewCell: UITableViewCell {
             let components = Calendar.current.dateComponents([.hour, .minute], from: self.endTime!)
             let hour = components.hour!
             let minute = components.minute!
-            self.endTimeButton.titleLabel?.text = "\(String(format: "%02d", hour)):\(String(format: "%02d", minute))"
+            self.endTimeButton.setTitle("\(String(format: "%02d", hour)):\(String(format: "%02d", minute))", for: .normal)
+            
+            if let startTime = self.startTime,
+                let endTime = self.endTime {
+                if startTime > endTime {
+                    self.reminderLabel.text = "Horário inválido (inicio maior que fim). Alterações não salvas."
+                    self.reminderLabel.textColor = .systemRed
+                } else {
+                    self.reminderLabel.text = "Este é o horário calculado para seus estudos hoje. Clique para alterar."
+                    self.reminderLabel.textColor = UIColor(displayP3Red: 142/255, green: 142/255, blue: 147/255, alpha: 1)
+                    UserDefaults.standard.set(self.startTime, forKey: "startHour")
+                }
+            }
+            
+            UserDefaults.standard.set(self.endTime, forKey: "endHour")
+
             alert.dismiss(animated: true, completion: nil)
             
-            if let startTime = self.startTime {
-                let componentsStart = Calendar.current.dateComponents([.hour, .minute], from: startTime)
-                let hour2 = componentsStart.hour!
-                let minute2 = componentsStart.minute!
-                self.startTimeButton.titleLabel?.text = "\(String(format: "%02d", hour2)):\(String(format: "%02d", minute2))"
-            }
         }
         let action2 = UIAlertAction(title: "Cancelar", style: .cancel) { (action:UIAlertAction) in
             print("You've pressed cancelar");
@@ -155,6 +179,85 @@ class ReminderTableViewCell: UITableViewCell {
         }
     }
     
-    
+    @IBAction func reminderButtonPressed(_ sender: Any) {
+        
+    }
+}
 
+extension Day {
+    convenience init?(numberOnWeek: Int) {
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        let context = delegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "Day", in: context)!
+        self.init(entity: entity, insertInto: context)
+        self.numberInWeek = Int64(numberOnWeek)
+        
+        do {
+            try context.save()
+            
+        } catch let error as NSError {
+            print("Could not save day. \(error)")
+        }
+    }
+    
+    static func saveChanges() {
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let context = delegate.persistentContainer.viewContext
+        
+        do {
+            try context.save()
+            
+        } catch let error as NSError {
+            print("Could not save day. \(error)")
+        }
+    }
+    
+    static func getAll(with predicate: NSPredicate = NSPredicate(value: true)) -> [Day] {
+        let fetchRequest = NSFetchRequest<Day>(entityName: "Day")
+        fetchRequest.predicate = predicate
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return [] }
+        let context = delegate.persistentContainer.viewContext
+        guard let days = try? context.fetch(fetchRequest) else { return [] }
+        
+        return days
+    }
+    
+    static func getDay(in day: Int) -> [Day] {
+        let predicate = NSPredicate(format: "numberInWeek == %i", day)
+        return Day.getAll(with: predicate)
+    }
+}
+
+extension Lecture {
+    convenience init?(name: String, startTime: Date, endTime: Date) {
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        let context = delegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "Lecture", in: context)!
+        self.init(entity: entity, insertInto: context)
+        self.name = name
+        self.startTime = startTime
+        self.endTime = endTime
+        
+        do {
+            try context.save()
+            
+        } catch let error as NSError {
+            print("Could not save lecture. \(error)")
+        }
+    }
+    
+    static func getAll(with predicate: NSPredicate = NSPredicate(value: true)) -> [Lecture] {
+        let fetchRequest = NSFetchRequest<Lecture>(entityName: "Lecture")
+        fetchRequest.predicate = NSPredicate(value: true)
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return [] }
+        let context = delegate.persistentContainer.viewContext
+        guard let days = try? context.fetch(fetchRequest) else { return [] }
+        
+        return days
+    }
+    
+    static func getLecture(with name: String) -> [Lecture] {
+        let predicate = NSPredicate(format: "name == %i", name)
+        return Lecture.getAll(with: predicate)
+    }
 }

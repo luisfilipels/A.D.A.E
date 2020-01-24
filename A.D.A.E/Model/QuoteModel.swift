@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+import CoreData
 
 struct QuotesJSON: Decodable {
     let contents: QuotesJSONContent
@@ -20,3 +22,5 @@ struct Quote: Decodable {
     let quote: String
     let author: String
 }
+
+

@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
-    <entity name="Entity" representedClassName="Entity" syncable="YES" codeGenerationType="class"/>
+    <entity name="Day" representedClassName="Day" syncable="YES" codeGenerationType="class">
+        <attribute name="numberInWeek" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="classesInDay" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Lecture" inverseName="dayThatHappens" inverseEntity="Lecture"/>
+    </entity>
+    <entity name="Lecture" representedClassName="Lecture" syncable="YES" codeGenerationType="class">
+        <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="dayThatHappens" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Day" inverseName="classesInDay" inverseEntity="Day"/>
+    </entity>
     <elements>
-        <element name="Entity" positionX="-63" positionY="-18" width="128" height="43"/>
+        <element name="Day" positionX="-63" positionY="-18" width="128" height="73"/>
+        <element name="Lecture" positionX="358.08203125" positionY="60.48828125" width="128" height="103"/>
     </elements>
 </model>

@@ -179,12 +179,16 @@
                                                     <state key="normal" title="Receber Lembretes">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="reminderButtonPressed:" destination="1pI-jy-2EF" eventType="touchUpInside" id="PAQ-qp-FTX"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="endTimeButton" destination="xk6-or-P6L" id="hUn-CP-hMX"/>
-                                            <outlet property="reminderButton" destination="mr0-iV-R0b" id="3jN-vf-Qad"/>
+                                            <outlet property="reminderButton" destination="mr0-iV-R0b" id="IMx-4T-wyV"/>
+                                            <outlet property="reminderLabel" destination="F3i-Fa-rGI" id="mAS-5O-zKN"/>
                                             <outlet property="startTimeButton" destination="v83-Qh-G41" id="tyI-d3-Sq2"/>
                                             <outlet property="timeView" destination="rdo-Nb-Eq2" id="4GE-af-2lW"/>
                                         </connections>
@@ -342,14 +346,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3rp-xb-wih">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3rp-xb-wih">
                                 <rect key="frame" x="98" y="438" width="219" height="219"/>
                                 <state key="normal" backgroundImage="PLAYBUTTON"/>
                                 <connections>
                                     <action selector="startPauseButtonPressed:" destination="xR7-XK-orI" eventType="touchUpInside" id="EaP-6m-ztw"/>
                                 </connections>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qHd-0B-xao">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHd-0B-xao">
                                 <rect key="frame" x="20" y="312" width="374" height="2"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kAr-5Y-qam">
@@ -399,7 +403,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UB5-WO-w68"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Xik-dQ-xZH"/>
+                    <tabBarItem key="tabBarItem" title="Pomodoro" id="Xik-dQ-xZH"/>
                     <navigationItem key="navigationItem" title="Pomodoro" largeTitleDisplayMode="always" id="lfu-wm-bQc"/>
                     <connections>
                         <outlet property="minutesLabel" destination="kAr-5Y-qam" id="7Zy-xc-nA6"/>
