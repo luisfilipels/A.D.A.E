@@ -502,6 +502,7 @@
                         <outlet property="progressView" destination="qHd-0B-xao" id="fd8-ic-oXH"/>
                         <outlet property="secondsLabel" destination="Hgb-2b-eYL" id="Zks-G0-Rry"/>
                         <outlet property="startPauseButton" destination="3rp-xb-wih" id="fHJ-8m-Ppg"/>
+                        <outlet property="studyRestLabel" destination="1h8-oA-cmq" id="Cp4-N3-4hG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DBQ-AY-9Mj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -528,7 +529,7 @@
     </scenes>
     <resources>
         <image name="Caminho 23" width="106.5" height="79"/>
-        <image name="PLAYBUTTON" width="61" height="61"/>
         <image name="checkmark" catalog="system" width="64" height="56"/>
+        <image name="play" width="200" height="200"/>
     </resources>
 </document>
